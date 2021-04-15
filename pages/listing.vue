@@ -7,6 +7,13 @@
 <script>
     export default {
         name: 'listing',
+        middleware: [
+            'auth',
+            'listing'
+        ],
+        data(){
+            product: 'listing'
+        },
         computed:{
             listing(){
                 return this.$store.state.listing.data
