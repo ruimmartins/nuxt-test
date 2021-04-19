@@ -1,28 +1,15 @@
-import { Auth } from "aws-amplify"
-
-export const state = () => ({
-  rendered: false,
-})
-
-export const mutations = {
-  setServerRendered: (state, rendered) => {
-    state.rendered = rendered
-  },
-}
+import { withSSRContext } from "aws-amplify"
 
 export const actions = {
-  async nuxtServerInit({ dispatch, commit }, { req }) {
-    if (req.headers.cookie) {
-      const cookies = req.headers.cookie.split("; ")
-      const idTokenString = cookies.find((cookie) => cookie.includes("idToken"))
-      const userIdString = cookies.find((cookie) => cookie.includes("LastAuthUser"))
-      if (idTokenString) {
-        const token = idTokenString.split(".idToken=")[1]
-        const id = userIdString.split(".LastAuthUser=")[1]
-        commit("user/setToken", token)
-        commit("user/setUserId", id)
-        await dispatch("user/loadInitialData")
-      }
+  async nuxtServerInit({ dispatch, commit }, { req, redirect }) {
+    const SSR = withSSRContext({ req })
+    try{
+      const currentSession = await SSR.API.Auth.currentSession()
+      commit("user/setToken", currentSession.idToken.jwtToken)
+      commit("user/setUserId", currentSession.idToken.payload.name)
+      await dispatch("user/loadInitialData")
+    }catch(e){
+      redirect({name: 'index'})
     }
   },
 }
