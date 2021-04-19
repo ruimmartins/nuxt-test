@@ -11,7 +11,7 @@ export const mutations = {
 }
 
 export const actions = {
-  nuxtServerInit({ dispatch, commit }, { req }) {
+  async nuxtServerInit({ dispatch, commit }, { req }) {
     if (req.headers.cookie) {
       const cookies = req.headers.cookie.split("; ")
       const idTokenString = cookies.find((cookie) => cookie.includes("idToken"))
@@ -21,7 +21,7 @@ export const actions = {
         const id = userIdString.split(".LastAuthUser=")[1]
         commit("user/setToken", token)
         commit("user/setUserId", id)
-        dispatch("user/loadInitialData")
+        await dispatch("user/loadInitialData")
       }
     }
   },

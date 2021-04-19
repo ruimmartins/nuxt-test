@@ -32,7 +32,7 @@
                 return this.$store.state.user.token
             },
             productVariants(){
-                return this.$store.state.productVariants.variants.listing
+                return this.$store.getters['productVariants/getListingProductVariants']
             }
         },
         methods:{

@@ -21,7 +21,8 @@ export default {
     { src: "~/plugins/vuelidate.js" },
     { src: "~/plugins/tracking.js", mode: "client" },
     { src: "~/plugins/userlike.js", mode: "client" },
-    { src: "~/plugins/userlane.js", mode: "client" }
+    { src: "~/plugins/userlane.js", mode: "client" },
+    { src: "~/plugins/axios.js"},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

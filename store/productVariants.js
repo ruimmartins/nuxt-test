@@ -13,13 +13,15 @@ export const mutations = {
   },
 }
 
+export const getters = {
+  getListingProductVariants(state) {
+    return state.variants.listing
+  },
+}
+
 export const actions = {
-  async initProductVariants({ commit, rootState }) {
-    const response = await this.$axios.get(`${LISTING_PLATFORMS_PATH}/${COMPANY_ID}/productvariants`, {
-      headers: {
-        Authorization: "Bearer " + rootState.user.token,
-      },
-    })
+  async initProductVariants({ commit }) {
+    const response = await this.$axios.get(`${LISTING_PLATFORMS_PATH}/${COMPANY_ID}/productvariants`)
     commit("setProductVariants", {
       product: "listing",
       value: response.data,

@@ -1,5 +1,6 @@
 <template>
     <div>
+        <NuxtLink :to="{name: 'index'}"> Homepage </NuxtLink>
         <p>{{listing}}</p>
     </div>
 </template>

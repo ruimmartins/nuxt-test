@@ -12,12 +12,8 @@ export const mutations = {
 }
 
 export const actions = {
-    async initListing({ commit, rootState }){
-        let response = await this.$axios.get(`${LISTING_PLATFORMS_PATH}/${COMPANY_ID}`, {
-            headers: {
-                'Authorization': 'Bearer ' + rootState.user.token
-            }
-        })
+    async initListing({ commit }){
+        let response = await this.$axios.get(`${LISTING_PLATFORMS_PATH}/${COMPANY_ID}`)
         commit('setListing', response.data)
     }
 }

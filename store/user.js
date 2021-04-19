@@ -38,8 +38,8 @@ export const actions = {
   amplifySignIn() {
     return Auth.signIn("rui.martins@sellwerk.de", "Welcome12!")
   },
-  loadInitialData({ dispatch }) {
-    dispatch("productVariants/initProductVariants", null, { root: true })
+  async loadInitialData({ dispatch }) {
+    await dispatch("productVariants/initProductVariants", null, { root: true })
   },
   setContactId({ commit }, id) {
     commit("updateContactId", id)
